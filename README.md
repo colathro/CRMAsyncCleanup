@@ -12,12 +12,12 @@
 2. Verbose Variable Naming
 3. Excessive Commenting :+1:
 
-# Core Values Explained:
 
+## Core Values Explained:
 1. Simple implementations to allow new developers easy examples and practical implentations to build off. Complexity != Solid Implmentation
 
 2. Verbose variable naming allows for more readable and beginner friendly experience. Short variable names are :sunglasses:, but impractical.
 
 3. Excessive commenting should allow for better explaination throughout the app and the ability to easily identify features/processes.
 
-
+![alt text](https://github.com/colathro/CRMAsyncCleanup/blob/master/Dynamics-365-Async-Cleanup/Reference%20Guide/AdvancedFind.png?raw=true)
