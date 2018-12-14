@@ -1,0 +1,16 @@
+<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+  <entity name="asyncoperation">
+    <attribute name="asyncoperationid" />
+    <attribute name="name" />
+    <attribute name="regardingobjectid" />
+    <attribute name="operationtype" />
+    <attribute name="statuscode" />
+    <attribute name="ownerid" />
+    <attribute name="startedon" />
+    <attribute name="statecode" />
+    <order attribute="startedon" descending="true" />
+    <filter type="and">
+      <condition attribute="createdon" operator="on-or-before" value="2018-12-11" />
+    </filter>
+  </entity>
+</fetch>
