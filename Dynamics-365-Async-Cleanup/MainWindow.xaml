@@ -13,14 +13,15 @@
          TextOptions.TextFormattingMode="Ideal"
          TextOptions.TextRenderingMode="Auto"
          Background="{DynamicResource MaterialDesignPaper}"
-         FontFamily="{DynamicResource MaterialDesignFont}">
+         FontFamily="{DynamicResource MaterialDesignFont}"
+        ResizeMode="CanMinimize">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.indigo.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.indigo.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -29,6 +30,71 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <Button Content="Login" HorizontalAlignment="Left" Margin="102,312,0,0" VerticalAlignment="Top" Width="75" Click="Login_Click"/>
+        <materialDesign:PackIcon Kind="GithubBox" Height="28" Width="28" Margin="6,8,0,0" />
+        <TextBlock Margin="40,15,646,382">           
+            <Hyperlink NavigateUri="https://github.com/colathro/Dynamics-CRM-Community-System-Job-Cleanup" RequestNavigate="Hyperlink_RequestNavigate">
+                Help + Source
+            </Hyperlink>
+        </TextBlock>
+        <materialDesign:PackIcon Kind="MicrosoftDynamics" Height="28" Width="28" Margin="161,10,0,0" />
+        <TextBlock Margin="194,15,426,382">           
+            <Hyperlink NavigateUri="https://docs.microsoft.com/en-us/dynamics365/customer-engagement/developer/developer-guide" RequestNavigate="Hyperlink_RequestNavigate">
+                Learn Dynamics 365 SDK!
+            </Hyperlink>
+        </TextBlock>
+        <materialDesign:PackIcon Kind="Microsoft" Height="28" Width="28" Margin="397,7,0,0" />
+        <TextBlock Margin="430,15,165,382">           
+            <Hyperlink NavigateUri="https://blogs.msdn.microsoft.com/crm/" RequestNavigate="Hyperlink_RequestNavigate">
+                Dynamics 365 CRM Team Blog
+            </Hyperlink>
+        </TextBlock>
+        <materialDesign:PackIcon Kind="BugReport" Height="28" Width="28" Margin="647,10,0,0" />
+        <TextBlock Margin="680,15,-85,382" Grid.ColumnSpan="2">           
+            <Hyperlink NavigateUri="https://github.com/colathro/Dynamics-CRM-Community-System-Job-Cleanup/issues" RequestNavigate="Hyperlink_RequestNavigate">
+                Report a Bug!
+            </Hyperlink>
+        </TextBlock>
+
+        <Button Content="Login" HorizontalAlignment="Left" Margin="11,159,0,0" VerticalAlignment="Top" Width="120" Click="Login_Click" Height="24"/>
+        <TextBox
+          x:Name="LoggedInUserDisplay"
+          materialDesign:HintAssist.Hint="Logged In User" Margin="11,40,395,345"
+          IsEnabled="False"/>
+        <TextBox
+          x:Name="LoggedInOrganizationURL"
+          materialDesign:HintAssist.Hint="Organization URL" Margin="10,78,395,307"
+            IsEnabled="False"/>
+        <TextBox
+          x:Name="LoggedInOrganizationID"
+          materialDesign:HintAssist.Hint="Organization ID" Margin="10,118,395,267"
+            IsEnabled="False"/>
+        <TextBox HorizontalAlignment="Left" Height="250" Margin="404,61,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="368" 
+                 VerticalScrollBarVisibility="Auto"
+                 AcceptsReturn="True"
+                 VerticalContentAlignment="Top"
+                 Cursor="IBeam"
+                 />
+        <Label Content="System Job Fetch XML:" HorizontalAlignment="Left" Margin="399,35,0,0" VerticalAlignment="Top"
+               Foreground="LightGray"/>
+        <Label Content="Operation Type:" HorizontalAlignment="Left" Margin="586,316,0,0" VerticalAlignment="Top"
+               Foreground="LightGray"/>
+        
+        <StackPanel
+          Orientation="Horizontal"
+          Margin="586,330,22,35">
+            
+            <RadioButton
+            Style="{StaticResource MaterialDesignTabRadioButton}"
+            Margin="4"
+            IsChecked="True"
+            Content="Delete" 
+                Cursor="Hand"/>
+            <RadioButton
+            Style="{StaticResource MaterialDesignTabRadioButton}"
+            Margin="4"
+            IsChecked="False"
+            Content="Cancel" 
+                Cursor="Hand"/>
+        </StackPanel>
     </Grid>
 </Window>
