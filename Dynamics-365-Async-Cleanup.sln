@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dynamics-365-Async-Cleanup", "Dynamics-365-Async-Cleanup\Dynamics-365-Async-Cleanup.csproj", "{12B0190E-B7A3-4355-9763-C5E5067BD2DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12B0190E-B7A3-4355-9763-C5E5067BD2DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B0190E-B7A3-4355-9763-C5E5067BD2DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B0190E-B7A3-4355-9763-C5E5067BD2DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B0190E-B7A3-4355-9763-C5E5067BD2DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FC66F0B-159C-42D7-86BB-93AD624965C4}
+	EndGlobalSection
+EndGlobal
