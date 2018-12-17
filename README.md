@@ -1,6 +1,6 @@
 # Community System Job Cleanup/Management
 
-![alt text](https://github.com/colathro/CRMAsyncCleanup/blob/master/Dynamics-365-Async-Cleanup/Reference%20Guide/CurrentVersionScreenshot.jpg)
+![alt text](https://github.com/colathro/Dynamics-CRM-Community-System-Job-Cleanup/blob/master/Dynamics-365-Async-Cleanup/Reference%20Guide/CurrentVersionScreenshot.JPG?raw=true)
 
 ## Utilized Packages/Resources:
 1. [MaterialDesignXaml](http://materialdesigninxaml.net/)
