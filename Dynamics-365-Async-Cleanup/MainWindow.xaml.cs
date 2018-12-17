@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Xrm.Tooling.Connector;
+using Microsoft.Xrm.Sdk.Query;
+using Dynamics_365_Async_Cleanup.Job_Logic;
+using Microsoft.Xrm.Sdk;
 
 namespace Dynamics_365_Async_Cleanup
 {
@@ -24,6 +28,9 @@ namespace Dynamics_365_Async_Cleanup
     {
 
         // Private Class Members
+        CRMLoginForm1 _ctrl;
+        Thread _workercontroller;
+        bool _loggedin = false;
 
         public MainWindow()
         {
@@ -48,25 +55,18 @@ namespace Dynamics_365_Async_Cleanup
             // Show the login control.   
             ctrl.ShowDialog();
 
-            // Handle the returned CRM connection object.  
-            // On successful connection, display the CRM version and connected org name   
-            if (ctrl.CrmConnectionMgr != null && ctrl.CrmConnectionMgr.CrmSvc != null && ctrl.CrmConnectionMgr.CrmSvc.IsReady)
+            if(ctrl.CrmConnectionMgr.CrmSvc != null)
             {
-                MessageBox.Show("Connected to CRM! Version: " + ctrl.CrmConnectionMgr.CrmSvc.ConnectedOrgVersion.ToString() +
-                " Org: " + ctrl.CrmConnectionMgr.CrmSvc.ConnectedOrgUniqueName, "Connection Status");
-
-                // Perform your actions here  
+                // Set the disabled text field to display the OrganizationID
+                this.LoggedInOrganizationID.Text = ctrl.CrmConnectionMgr.ConnectedOrgId.ToString();
+                // Set the disabled text field to display the Organization SDK URL
+                this.LoggedInOrganizationURL.Text = ctrl.CrmConnectionMgr.CrmSvc.CrmConnectOrgUriActual.ToString();
+                // Set the disabled text ield to display the logged in user ID
+                this.LoggedInUserDisplay.Text = ctrl.CrmConnectionMgr.CrmSvc.OAuthUserId;
+                this._ctrl = ctrl;
+                this._loggedin = true;
             }
-            else
-            {
-                MessageBox.Show("Cannot connect; try again!", "Connection Status");
-            }
-            // Set the disabled text field to display the OrganizationID
-            this.LoggedInOrganizationID.Text = ctrl.CrmConnectionMgr.ConnectedOrgId.ToString();
-            // Set the disabled text field to display the Organization SDK URL
-            this.LoggedInOrganizationURL.Text = ctrl.CrmConnectionMgr.CrmSvc.CrmConnectOrgUriActual.ToString();
-            // Set the disabled text ield to display the logged in user ID
-            this.LoggedInUserDisplay.Text = ctrl.CrmConnectionMgr.CrmSvc.OAuthUserId;
+            
 
         }
 
@@ -80,5 +80,50 @@ namespace Dynamics_365_Async_Cleanup
                 });
             }
         }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            // Set self to disabled + set cancelbutton to enabled
+            if (_loggedin && this.FetchXMLBox.Text != "")
+            {
+                this.StartButton.IsEnabled = false;
+                this.CancelButton.IsEnabled = true;
+                SettingsContainer settings = BuildSettingsContainer(this, _ctrl);
+                _workercontroller = new Thread(() => { WorkerController controller = new WorkerController(settings); });
+                _workercontroller.Start();
+            }
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            // Set self to disabled + set startbutton to enabled
+            this.StartButton.IsEnabled = true;
+            this.CancelButton.IsEnabled = false;
+            this.StatusBox.Text = "Canceling";
+            // Abort the primary worker controller thread
+            _workercontroller.Abort();
+            this.StatusBox.Text = "Stopped";
+        }
+
+        private void BatchSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Set Display to the value of slider
+            if (this.BatchSizeDisplay != null){
+                this.BatchSizeDisplay.Text = this.BatchSizeSlider.Value.ToString();
+            }
+        }
+
+        private SettingsContainer BuildSettingsContainer(MainWindow window, CRMLoginForm1 CRMLogin)
+        {
+            // thsi settings contained is used to pass variables to the workercontroller so it has the settings to submit batch jobs.
+            SettingsContainer settings = new SettingsContainer();
+            settings._batchsize = (int)window.BatchSizeSlider.Value;
+            settings._fetchxml = window.FetchXMLBox.Text;
+            settings._isdelete = window.DeleteRadioButton.IsEnabled;
+            settings._window = window;
+            settings._CRMLogin = CRMLogin;
+            return settings;
+        }
+
     }
 }
