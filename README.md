@@ -1,5 +1,7 @@
 # Community System Job Cleanup/Management
 
+![alt text](https://github.com/colathro/Dynamics-CRM-Community-System-Job-Cleanup/blob/master/Dynamics-365-Async-Cleanup/Reference%20Guide/CurrentVersionScreenshot.JPG?raw=true)
+
 ## Utilized Packages/Resources:
 1. [MaterialDesignXaml](http://materialdesigninxaml.net/)
 2. [CRMSdk Core Assemblies](https://www.nuget.org/packages/Microsoft.CrmSdk.CoreAssemblies/)
@@ -21,3 +23,8 @@
 3. Excessive commenting should allow for better explaination throughout the app and the ability to easily identify features/processes.
 
 ![alt text](https://github.com/colathro/CRMAsyncCleanup/blob/master/Dynamics-365-Async-Cleanup/Reference%20Guide/AdvancedFind.png?raw=true)
+
+## TODO:
+1. Fix Multithreading - assumed OrganizationServiceProxy could be called on different threads but internal lock due to WCF prevents this.
+2. Better rate tracking
+3. Add Logging
