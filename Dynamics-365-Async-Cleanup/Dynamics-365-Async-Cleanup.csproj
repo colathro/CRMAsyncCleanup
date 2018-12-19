@@ -128,7 +128,6 @@
       <DependentUpon>CRMLoginForm1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Job Logic\SettingsContainer.cs" />
-    <Compile Include="Job Logic\Worker.cs" />
     <Compile Include="Job Logic\WorkerController.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
