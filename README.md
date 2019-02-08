@@ -5,7 +5,7 @@
 ## Usage:
 ### 1. User your instance's advanced find to build a query which returns your desired records to operate on. (Test)
 ### 2. Download Fetch XML and Open.
-### 3. Trim off unneccesary columns and sorts - Only column needed is 
+### 3. Trim off unneccesary columns and sorts - Only column needed is asyncoperationid
 From: 
 ```
 <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
