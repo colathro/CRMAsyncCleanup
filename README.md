@@ -2,6 +2,36 @@
 
 ![alt text](https://github.com/colathro/Dynamics-CRM-Community-System-Job-Cleanup/blob/master/Dynamics-365-Async-Cleanup/Reference%20Guide/CurrentVersionScreenshot.JPG?raw=true)
 
+## Usage:
+### 1. User your instance's advanced find to build a query which returns your desired records to operate on. (Test)
+### 2. Download Fetch XML and Open.
+### 3. Trim off unneccesary columns and sorts - Only column needed is 
+From: 
+<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+<entity name="asyncoperation">
+<attribute name="asyncoperationid"/>
+<attribute name="name"/>
+<attribute name="regardingobjectid"/>
+<attribute name="operationtype"/>
+<attribute name="statuscode"/>
+<attribute name="ownerid"/>
+<attribute name="startedon"/>
+<attribute name="statecode"/>
+<order attribute="startedon" descending="true"/>
+</entity>
+</fetch>
+
+To: 
+<fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+<entity name="asyncoperation">
+<attribute name="asyncoperationid"/>
+</entity>
+</fetch>
+
+### 4. Login to the tool and paste in your edited fetch xml.
+### 5. Set the batch size (Recommended 250 for best peformance) and operation (Delete or Cancel)
+### 6. Run and monitor!
+
 ## Utilized Packages/Resources:
 1. [MaterialDesignXaml](http://materialdesigninxaml.net/)
 2. [CRMSdk Core Assemblies](https://www.nuget.org/packages/Microsoft.CrmSdk.CoreAssemblies/)
