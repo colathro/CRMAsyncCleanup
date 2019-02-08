@@ -3,9 +3,9 @@
 ![alt text](https://github.com/colathro/Dynamics-CRM-Community-System-Job-Cleanup/blob/master/Dynamics-365-Async-Cleanup/Reference%20Guide/CurrentVersionScreenshot.JPG?raw=true)
 
 ## Usage:
-### 1. User your instance's advanced find to build a query which returns your desired records to operate on. (Test)
+### 1. Use your instance's advanced find to build a query which returns your desired records to operate on. (Test)
 ### 2. Download Fetch XML and Open.
-### 3. Trim off unneccesary columns and sorts - Only column needed is asyncoperationid
+### 3. Trim off unneccesary columns and sorts for performance - Only column needed is asyncoperationid
 From: 
 ```
 <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
@@ -19,6 +19,10 @@ From:
 <attribute name="startedon"/>
 <attribute name="statecode"/>
 <order attribute="startedon" descending="true"/>
+<filter type="and">
+<condition attribute="createdon" operator="on-or-before" value="2019-02-01"/>
+<condition attribute="statecode" operator="eq" value="3"/>
+</filter>
 </entity>
 </fetch>
 ```
@@ -28,6 +32,10 @@ To:
 <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
 <entity name="asyncoperation">
 <attribute name="asyncoperationid"/>
+<filter type="and">
+<condition attribute="createdon" operator="on-or-before" value="2019-02-01"/>
+<condition attribute="statecode" operator="eq" value="3"/>
+</filter>
 </entity>
 </fetch>
 ```
