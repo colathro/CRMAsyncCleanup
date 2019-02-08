@@ -28,7 +28,8 @@ namespace Dynamics_365_Async_Cleanup.Job_Logic
             // We only want 2 active threads executing the executemultiple - CRM Online is hard limited to 2 concurrent sessions
             while (_morerecords)
             {
-                // Fetch records - 5000 typically means we need to fetch more
+                // Fetch records - 5000 typically means we need to fetch more 
+                // TODO: Error parsing XML crashes app - need to handle here
                 EntityCollection modifyset = _settings._CRMLogin.CrmConnectionMgr.CrmSvc.RetrieveMultiple(new FetchExpression(_settings._fetchxml));
                 // EntityCollection has non-useful so we convert explicitly to List<Entity> for future use
                 List<Entity> _entitylist = modifyset.Entities.ToList<Entity>();
@@ -48,6 +49,7 @@ namespace Dynamics_365_Async_Cleanup.Job_Logic
                         Execute(_entitylist.GetRange(0, _settings._batchsize), _settings._CRMLogin.CrmConnectionMgr.CrmSvc, _settings._isdelete);
                         // remove the first batches
                         _entitylist.RemoveRange(0, _settings._batchsize);
+                        // Dispatch a command to update the UI
                         _settings._window.Dispatcher.Invoke((Action)(() =>
                         {
                             int next = Convert.ToInt32(_settings._window.TotalRecordsBox.Text) + _settings._batchsize;
@@ -59,11 +61,12 @@ namespace Dynamics_365_Async_Cleanup.Job_Logic
                     else
                     {
                         Execute(_entitylist, _settings._CRMLogin.CrmConnectionMgr.CrmSvc, _settings._isdelete);
+                        // Dispatch a command to update the UI
                         _settings._window.Dispatcher.Invoke((Action)(() =>
                         {
                             int next = Convert.ToInt32(_settings._window.TotalRecordsBox.Text) + _entitylist.Count;
                             _settings._window.TotalRecordsBox.Text = next.ToString();
-                            _settings._window.RecordsPerSecondBox.Text = (Convert.ToInt32(_settings._window.TotalRecordsBox.Text) / (DateTime.Now - _start).TotalSeconds).ToString();
+                            _settings._window.RecordsPerSecondBox.Text = Math.Round((Convert.ToInt32(_settings._window.TotalRecordsBox.Text) / (DateTime.Now - _start).TotalSeconds), 2).ToString();
                         }));
                         _entitylist = new List<Entity>();
                     }
@@ -72,11 +75,17 @@ namespace Dynamics_365_Async_Cleanup.Job_Logic
             _settings._window.Dispatcher.Invoke((Action)(() => {
                 _settings._window.StatusBox.Text = "Finished";
                 _settings._window.RecordsPerSecondBox.Text = "0";
+                _settings._window.StartButton.IsEnabled = true;
+                _settings._window.CancelButton.IsEnabled = false;
             }));
         }
 
         public int GetBatchCount(int count, int batchsize)
-        {
+        {   
+            if (batchsize == 0)
+            {
+                return 0;
+            }
             if ((count % batchsize) == 0)
             {
                 return (count / batchsize);
