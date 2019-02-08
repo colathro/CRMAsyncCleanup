@@ -7,7 +7,7 @@
 ### 2. Download Fetch XML and Open.
 ### 3. Trim off unneccesary columns and sorts - Only column needed is 
 From: 
-'''
+```
 <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
 <entity name="asyncoperation">
 <attribute name="asyncoperationid"/>
@@ -21,16 +21,16 @@ From:
 <order attribute="startedon" descending="true"/>
 </entity>
 </fetch>
-'''
+```
 
 To: 
-'''
+```
 <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
 <entity name="asyncoperation">
 <attribute name="asyncoperationid"/>
 </entity>
 </fetch>
-'''
+```
 
 ### 4. Login to the tool and paste in your edited fetch xml.
 ### 5. Set the batch size (Recommended 250 for best peformance) and operation (Delete or Cancel)
