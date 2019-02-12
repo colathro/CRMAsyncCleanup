@@ -124,6 +124,7 @@ namespace Dynamics_365_Async_Cleanup.Job_Logic
 
         public ExecuteMultipleRequest GetRequestDelete(List<Entity> entities)
         {
+            // Build new ExecuteMultipleSettings request from SDK
             ExecuteMultipleSettings executeSettings = new ExecuteMultipleSettings()
             {
                 ContinueOnError = true,
@@ -147,6 +148,7 @@ namespace Dynamics_365_Async_Cleanup.Job_Logic
 
         public ExecuteMultipleRequest GetRequestCancel(List<Entity> entities)
         {
+            // Build new ExecuteMultipleSettings request from SDK
             ExecuteMultipleSettings executeSettings = new ExecuteMultipleSettings()
             {
                 ContinueOnError = true,
@@ -159,6 +161,7 @@ namespace Dynamics_365_Async_Cleanup.Job_Logic
                 Settings = executeSettings
             };
 
+            // iterate over the passed entities to delete adding the cancel request to the execute multiple request
             foreach (Entity entity in entities)
             {
                 UpdateRequest upd = new UpdateRequest();
