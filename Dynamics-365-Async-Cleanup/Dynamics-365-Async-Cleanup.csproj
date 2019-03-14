@@ -127,6 +127,9 @@
     <Compile Include="CRMLoginForm1.xaml.cs">
       <DependentUpon>CRMLoginForm1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Job Logic\BatchController.cs" />
+    <Compile Include="Job Logic\QueueContainer.cs" />
+    <Compile Include="Job Logic\RetrieverController.cs" />
     <Compile Include="Job Logic\SettingsContainer.cs" />
     <Compile Include="Job Logic\WorkerController.cs" />
     <Compile Include="MainWindow.xaml.cs">
